@@ -7,5 +7,6 @@ func main() {
 
 	fmt.Println("Changed by not main")
 
-	fmt.Println("Hello")
+	
+	fmt.Println(1+2)
 }
