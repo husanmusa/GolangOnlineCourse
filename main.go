@@ -6,4 +6,6 @@ func main() {
 	fmt.Println("IN DEV")
 
 	fmt.Println("Changed by not main")
+
+	fmt.Println(1+2)
 }
