@@ -55,3 +55,5 @@ func (ms *MessageStorage) GetMessages(from, to int) ([]models.Message, error) {
 
 	return messages, nil
 }
+
+// Update, Delete - CRUD - create, read, update, delete
