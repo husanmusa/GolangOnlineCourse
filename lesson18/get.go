@@ -1,50 +1,26 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 
-	_ "github.com/lib/pq"
-)
+	"lesson18/postgres"
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "pass"
-	dbname   = "goonline"
+	"lesson18/storage"
 )
-
-type Message struct {
-	Id        int
-	UserId    int
-	Message   string
-	CreatedAt string
-}
 
 func main() {
-	dbCon := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	db, err := sql.Open("postgres", dbCon)
+	db, err := postgres.ConnDB()
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
 
-	messages := []Message{}
+	// msgStorage := storage.MessageStorage{db}
+	msgStorage := storage.NewMessageStorage(db)
 
-	rows, err := db.Query("select id, user_id, message, created_at from message where id between $1 and $2", 16456543, 16456543+10)
+	messages, err := msgStorage.GetMessages(16456543, 16456543+10)
 	if err != nil {
 		panic(err)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var msg Message
-		err = rows.Scan(&msg.Id, &msg.UserId, &msg.Message, &msg.CreatedAt)
-		if err != nil {
-			panic(err)
-		}
-		messages = append(messages, msg)
 	}
 
 	fmt.Printf("%+v\n", messages)
