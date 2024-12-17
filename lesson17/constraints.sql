@@ -25,6 +25,7 @@ SELECT
     NOW() - (random() * 365 * 24 * 60 * 60)::int * INTERVAL '1 second' AS created_at -- Random timestamp within last year
 FROM generate_series(1, 100000000) AS gs;          -- Adjust the range (1, 1000) for the number of mock entries
 
+-- hash, btree
 
 explain analyze select count(1) from message;
 explain analyze select count(id) from message ;
