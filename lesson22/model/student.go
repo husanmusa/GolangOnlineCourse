@@ -8,18 +8,28 @@ type Student struct {
 	LastName  string
 	Phone     string
 	Age       int
-	Grade     string
+	Grade     int
 	Gender    string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
 type CreateStudent struct {
-	Name      string
-	LastName  string
-	Phone     string
-	Age       int
-	Grade     string
-	Gender    string
-	CourseId  string
+	Name     string `json:"name"`
+	LastName string `json:"last_name"`
+	Phone    string `json:"phone"`
+	Age      int    `json:"age"`
+	Grade    int    `json:"grade"`
+	Gender   string `json:"gender"`
+	CourseId string `json:"course_id"`
+}
+
+type GetStudentResp struct {
+	Name     string `json:"name"`
+	LastName string `json:"last_name"`
+	Phone    string `json:"phone"`
+	Age      int    `json:"age"`
+	Grade    int    `json:"grade"`
+	Gender   string `json:"gender"`
+	Course   Course `json:"course"`
 }

@@ -1,14 +1,10 @@
 package main
 
 import (
-	"encoding/json"
-	"io"
-	"log"
-	"net/http"
-
-	"lesson22/model"
+	"lesson22/handler"
 	"lesson22/postgres"
 	"lesson22/repository"
+	"log"
 )
 
 func main() {
@@ -20,42 +16,13 @@ func main() {
 	defer db.Close()
 
 	studentRepo := repository.NewStudentRepository(db)
-	handler := NewHandler(studentRepo)
+	courseRepo := repository.NewCourseRepository(db)
 
-	http.HandleFunc("/student", handler.createStudent)
+	h := handler.NewHandler(studentRepo, courseRepo)
 
-	http.ListenAndServe(":8080", nil)
+	mux := handler.Run(h)
 
-}
-
-type Handler struct {
-	studentRepo *repository.StudentRepository
-}
-
-func NewHandler(studentRepo *repository.StudentRepository) *Handler {
-	return &Handler{studentRepo: studentRepo}
-}
-
-func (h *Handler) createStudent(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		http.Error(w, "Bad request", http.StatusBadRequest)
-		return
-	}
-	student := model.CreateStudent{}
-
-	err = json.Unmarshal(body, &student)
-	if err != nil {
-		http.Error(w, "Bad request", http.StatusBadRequest)
-		return
-	}
-
-	err = h.studentRepo.CreateStudent(&student)
+	err = mux.ListenAndServe()
 	if err != nil {
 		log.Fatal(err)
 	}

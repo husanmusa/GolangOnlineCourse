@@ -36,10 +36,34 @@ func (r *StudentRepository) CreateStudent(student *model.CreateStudent) error {
 		return err
 	}
 
-	_, err = tx.Exec("update course set number=number+1 where course_id=$1", student.CourseId)
+	_, err = tx.Exec("update course set number=number+1 where id=$1", student.CourseId)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (r *StudentRepository) GetStudent(id string) (*model.GetStudentResp, error) {
+	student := &model.GetStudentResp{}
+	err := r.db.QueryRow(`
+	select s.name, s.lastname, s.phone, s.age, s.grade, s.gender, c.name, c.number, c.tutor
+	from student s
+	 left join student_course sc on s.student_id = sc.student_id 
+	 left join course c on sc.course_id = c.id
+	where s.student_id = $1`, id).Scan(
+		&student.Name,
+		&student.LastName,
+		&student.Phone,
+		&student.Age,
+		&student.Grade,
+		&student.Gender,
+		&student.Course.Name,
+		&student.Course.Number,
+		&student.Course.Tutor,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return student, nil
 }
