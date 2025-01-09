@@ -1,13 +1,17 @@
 package handler
 
 import (
-	"expensity/service"
 	"fmt"
+	"lesson28/service"
 	"net/http"
 
-	"expensity/pkg"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"lesson28/pkg"
 
 	"github.com/gin-gonic/gin"
+
+	_ "lesson28/docs"
 )
 
 type Handler struct {
@@ -18,8 +22,22 @@ func NewHandler(userService *service.UserService) *Handler {
 	return &Handler{userService: userService}
 }
 
+// Run ...
+// @title			LIST API
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+// @version		1.0
+// @description	Testing Swagger APIs.
+// @contact.name	API Support
+// @contact.url	http://www.swagger.io/support
+// @contact.email	support@swagger.io
+// @host			localhost:8080
 func Run(h *Handler) *gin.Engine {
 	r := gin.Default()
+
+	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	//auth := r.Group("/auth")
 

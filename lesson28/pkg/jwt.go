@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"expensity/config"
+	"lesson28/config"
 
 	"github.com/golang-jwt/jwt/v5"
 )

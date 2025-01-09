@@ -1,9 +1,9 @@
 package service
 
 import (
-	"expensity/repository"
+	"lesson28/repository"
 
-	"expensity/models"
+	"lesson28/models"
 )
 
 type UserService struct {

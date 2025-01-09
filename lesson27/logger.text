@@ -1,0 +1,8 @@
+Info:2025/01/05 21:31:39 main.go:35: Starting Service!
+Info:2025/01/05 21:31:39 main.go:37: Time taken: 83ns
+Warn:2025/01/05 21:31:39 /Users/husanmusa/go/src/github.com/husanmusa/GolangOnlineCourse/lesson27/main.go:38: Something WARN
+Error:2025/01/05 21:31:39 main.go:39: Error: Something went wrong!
+Info:2025/01/05 21:46:19 main.go:35: Starting Service!
+Info:2025/01/05 21:46:19 main.go:37: Time taken: 42ns 
+Warn:2025/01/05 21:46:19 /Users/husanmusa/go/src/github.com/husanmusa/GolangOnlineCourse/lesson27/main.go:38: Something WARN
+Error:2025/01/05 21:46:19 main.go:39: Error: Something went wrong!

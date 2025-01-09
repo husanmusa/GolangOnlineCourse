@@ -1,10 +1,10 @@
 package main
 
 import (
-	"expensity/handler"
-	"expensity/postgres"
-	"expensity/repository"
-	"expensity/service"
+	"lesson28/handler"
+	"lesson28/postgres"
+	"lesson28/repository"
+	"lesson28/service"
 )
 
 func main() {
