@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"lesson31/model"
 	"log"
 	"os"
 
@@ -38,6 +39,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	a := []model.User{{Name: "John Doe", Age: 20}}
+
+	_, err = coll.InsertMany(context.Background(), a)
 
 	var result bson.D
 	err = coll.FindOne(context.TODO(), bson.D{{"name", name}}).

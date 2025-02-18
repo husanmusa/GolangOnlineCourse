@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "/auth";
+
+package auth;
+
+// The greeting service definition.
+service AuthService {
+  rpc SignIn (SignInReq) returns (SignInResp) {}
+  rpc SignUp (SignInReq) returns (Empty) {}
+}
+
+// The request message containing the user's name.
+message SignInReq {
+  string email = 1;
+  string password = 2;
+}
+
+// The response message containing the greetings
+message SignInResp {
+  string token = 1;
+}
+
+message Empty {
+}

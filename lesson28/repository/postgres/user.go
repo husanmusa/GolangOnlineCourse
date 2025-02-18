@@ -15,7 +15,6 @@ type UserRepo struct {
 
 func NewUserRepo(db *sql.DB) *UserRepo {
 	return &UserRepo{DB: db} //db: db.Collecion("user")
-
 }
 
 func (u *UserRepo) CreateUser(user models.User) error {
